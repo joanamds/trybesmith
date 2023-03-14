@@ -7,5 +7,6 @@ export async function create(product: IProduct) {
 }
 
 export async function getAll() {
-  return {};
+  const data = await productsModel.getAll();
+  return { status: 200, data };
 }
