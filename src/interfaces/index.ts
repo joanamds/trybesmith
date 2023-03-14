@@ -5,4 +5,5 @@ export interface IProduct {
 
 export interface Product extends IProduct {
   id: number,
+  orderId: number | null,
 }
