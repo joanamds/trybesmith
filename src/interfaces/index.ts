@@ -7,3 +7,14 @@ export interface Product extends IProduct {
   id: number,
   orderId: number | null,
 }
+
+export interface IUser {
+  username: string,
+  vocation: string,
+  level: number,
+  password: string,
+}
+
+export interface User extends IUser {
+  id: number,
+}
