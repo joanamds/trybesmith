@@ -17,7 +17,7 @@ export async function create(req: Request, res: Response) {
 
   const decoded = jwt.verify(token, secret) as IToken;
   const user = await usersModel.getByUsername(decoded.user.username);
-  const { status, data } = await orderService.create(user.id, order);
-
-  return res.status(status).json(data);
+  const { status, newOrder } = await orderService.create(user.id, order);
+  const { userId, productsIds } = newOrder;
+  return res.status(status).json({ userId, productsIds });
 }

@@ -153,17 +153,21 @@ export async function validateToken(
   res: Response,
   next: NextFunction,
 ) {
-  const token = req.header('Authorization');
+  const token = req.header('Authorization') as string;
 
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   }
-
-  const decoded = jwt.verify(token, secret) as IToken;
-  const test = await usersModel.getByUsername(decoded.user.username);
-  if (!test) {
+  try {
+    const decoded = jwt.verify(token, secret) as IToken;
+    const test = await usersModel.getByUsername(decoded.user.username);
+    if (!test) {
+      return res.status(401).json({ message: 'Invalid token' });
+    }
+  } catch (err) {
     return res.status(401).json({ message: 'Invalid token' });
   }
+  
   next();
 }
 

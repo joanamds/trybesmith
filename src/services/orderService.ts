@@ -9,5 +9,6 @@ export async function getAll() {
 export async function create(userId: number, order: IOrder) {
   const id = await ordersModel.create(userId);
   const data = await ordersModel.updateProduct(id, order);
-  return { status: 201, data };
+  const newOrder = data[0];
+  return { status: 201, newOrder };
 }

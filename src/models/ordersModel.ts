@@ -36,7 +36,7 @@ async function getOrderById(id: number): Promise<Order[]> {
     GROUP BY o.id, o.user_id
   `;
 
-  const value = id;
+  const value = [id];
   const [order] = await connection.execute(query, value);
 
   return order as Order[];
@@ -47,9 +47,7 @@ export async function updateProduct(orderId: number, order: IOrder): Promise<Ord
   const query = 'UPDATE Trybesmith.products SET order_id = ? WHERE id = ?;';
 
   await Promise.all(productsIds.map((productId) => {
-    const values = [orderId, productId];
-    console.log(`valores: ${values}`);
-    const result = connection.execute<ResultSetHeader>(query, [orderId, productId]);
+    const result = connection.execute(query, [orderId, productId]);
     return result;
   }));
 
