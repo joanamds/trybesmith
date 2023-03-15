@@ -10,10 +10,6 @@ export async function create(req: Request, res: Response) {
   return res.status(status).json(data);
 }
 
-export async function getAll() {
-  return {};
-}
-
 export async function login(req: Request, res: Response) {
   const user = req.body as UserLogin;
   const { status, data } = await userService.login(user);
