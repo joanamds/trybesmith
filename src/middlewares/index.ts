@@ -112,7 +112,7 @@ export function validateLevel(
   next: NextFunction,
 ) {
   const { level } = req.body as IUser;
-  console.log(level);
+  
   if (level < 1) {
     return res.status(422).json({
       message: '"level" must be greater than or equal to 1',

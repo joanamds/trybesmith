@@ -13,6 +13,5 @@ userRouter.post(
   validatePassword,
   userController.create,
 );
-userRouter.get('/', userController.getAll);
 
 export default userRouter;
