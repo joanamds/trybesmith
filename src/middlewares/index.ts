@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { UserLogin, IProduct, IUser, IOrder } from '../interfaces';
 import IToken from '../interfaces/IToken';
 import * as usersModel from '../models/usersModel';
+import { secret } from '../token/jwtConfig';
 
 export function validateLogin(
   req: Request,
@@ -158,10 +159,10 @@ export async function validateToken(
     return res.status(401).json({ message: 'Token not found' });
   }
 
-  const decoded = jwt.verify(token, 'secret') as IToken;
-  const user = await usersModel.getByUsername(decoded.payload.username);
-  if (!user) {
-    res.status(401).json({ message: 'Invalid token' });
+  const decoded = jwt.verify(token, secret) as IToken;
+  const test = await usersModel.getByUsername(decoded.user.username);
+  if (!test) {
+    return res.status(401).json({ message: 'Invalid token' });
   }
   next();
 }
