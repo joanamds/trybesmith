@@ -1,3 +1,4 @@
+import { IOrder } from '../interfaces';
 import * as ordersModel from '../models/ordersModel';
 
 export async function getAll() {
@@ -5,6 +6,8 @@ export async function getAll() {
   return { status: 200, data };
 }
 
-export async function create() {
-  return {};
+export async function create(userId: number, order: IOrder) {
+  const id = await ordersModel.create(userId);
+  const data = await ordersModel.updateProduct(id, order);
+  return { status: 201, data };
 }

@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { UserLogin, IProduct, IUser } from '../interfaces';
+import jwt from 'jsonwebtoken';
+import { UserLogin, IProduct, IUser, IOrder } from '../interfaces';
+import IToken from '../interfaces/IToken';
+import * as usersModel from '../models/usersModel';
 
 export function validateLogin(
   req: Request,
@@ -140,6 +143,46 @@ export function validatePassword(
     return res.status(422).json({
       message: '"password" length must be at least 8 characters long',
     });
+  }
+  next();
+}
+
+export async function validateToken(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const token = req.header('Authorization');
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+
+  const decoded = jwt.verify(token, 'secret') as IToken;
+  const user = await usersModel.getByUsername(decoded.payload.username);
+  if (!user) {
+    res.status(401).json({ message: 'Invalid token' });
+  }
+  next();
+}
+
+export function validateOrder(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const { productsIds } = req.body as IOrder;
+
+  if (!productsIds) {
+    return res.status(400).json({ message: '"productsIds" is required' });
+  }
+
+  if (!Array.isArray(productsIds)) {
+    return res.status(422).json({ message: '"productsIds" must be an array' });
+  }
+
+  if (productsIds.length === 0) {
+    return res.status(422).json({ message: '"productsIds" must include only numbers' });
   }
   next();
 }

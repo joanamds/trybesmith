@@ -19,6 +19,10 @@ export interface User extends IUser {
   id: number,
 }
 
+export interface IOrder {
+  productsIds: number[],
+}
+
 export interface Order {
   id: number,
   userId: number,

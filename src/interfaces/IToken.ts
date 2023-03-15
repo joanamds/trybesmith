@@ -2,8 +2,9 @@
 interface IToken {
   payload: {
     id: number;
-    name: string;
-    email: string;
+    username: string;
+    vocation: string;
+    level: number;
     password: string;
   };
   iat: number;
