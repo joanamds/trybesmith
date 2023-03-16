@@ -78,13 +78,6 @@ npm install
 npm run dev
 ```
 
-> Testes
-
-* Dentro do terminal do container:
-```bash
-npm test
-``` 
-
 ### Sem Docker
 
 * Instale as dependências [Caso existam]
