@@ -5,7 +5,7 @@ import { IOrder, Order } from '../interfaces';
 export async function getAll(): Promise<Order[]> {
   const query = `
     SELECT o.id, o.user_id AS userId,
-    JSON_EXTRACT(CONCAT('[', GROUP_CONCAT(p.id SEPARATOR ','), ']'), '$') AS productsIds 
+    JSON_ARRAYAGG(p.id) AS productsIds 
     FROM Trybesmith.orders AS o
     JOIN Trybesmith.products AS p ON o.id = p.order_id
     GROUP BY o.id, o.user_id
@@ -29,7 +29,7 @@ export async function create(userId: number): Promise<number> {
 async function getOrderById(id: number): Promise<Order[]> {
   const query = `
     SELECT o.id, o.user_id AS userId,
-    JSON_EXTRACT(CONCAT('[', GROUP_CONCAT(p.id SEPARATOR ','), ']'), '$') AS productsIds 
+    JSON_ARRAYAGG(p.id) AS productsIds 
     FROM Trybesmith.orders AS o
     JOIN Trybesmith.products AS p ON o.id = p.order_id
     WHERE o.id = ?
