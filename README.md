@@ -1,4 +1,8 @@
-# :construction: README em construção ! :construction:
+# 🗡️ Trybesmith
+
+Primeiro projeto utilizando TypeScript! Para este projeto foi preciso simular uma loja de produtos medievais criando uma API com endpoints para ler e escrever no banco de dados utilizando MySQL. 
+
+
 <!-- Olá, Tryber!
 Esse é apenas um arquivo inicial para o README do seu projeto.
 É essencial que você preencha esse documento por conta própria, ok?
