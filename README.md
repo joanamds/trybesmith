@@ -1,4 +1,4 @@
-# 🗡️ Trybesmith
+# Trybesmith 🗡️
 
 Primeiro projeto utilizando TypeScript! Para este projeto foi preciso simular uma loja de produtos medievais criando uma API com endpoints para ler e escrever no banco de dados utilizando MySQL. 
 
